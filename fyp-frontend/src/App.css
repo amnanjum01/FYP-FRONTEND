@@ -1,0 +1,257 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.side-menu{
+  background-color: #878D70 !important;
+}
+
+.accordion-menu{
+  background-color: #878D70 !important;
+}
+
+.accordion-custom-text{
+  color: #ffffff !important;
+}
+
+.home-search{
+  height: 200px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #B07D60;
+}
+
+.home-search-button{
+  background-color: #878D70 !important;
+  color: #ffffff !important;
+}
+
+.homepage-products{
+  background-color: #B07D60 !important;
+  color: #ffffff;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  padding-top: 30px;
+}
+
+.homepage-product-title{
+  align-content: center;
+}
+
+.search-result-products{
+  background-color: #ffffff;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  padding-top: 30px;
+  color: #B07D60 !important;
+
+  position: absolute;
+  bottom: 0;
+  height: 60%;
+}
+
+.search-result-page{
+  position: relative;
+  display: inline-block;
+}
+
+.search-result-tab{
+  display: flex;
+  color: #282c34;
+}
+
+.result-buttons{
+  position: absolute;
+  top:10px;
+  right:10px;
+  color:#371812 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.result-button{
+  align-self: self-end;
+}
+
+.accordion-button:focus {
+  box-shadow: none !important;
+  border-color: rgba(0,0,0,.125);
+}
+
+.accordion-button:after {
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+}
+
+.carousel-custom-padding{
+  padding-right: 30%;
+  padding-left: 30%;
+}
+
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+    filter: invert(100%) !important;
+}
+
+.product-info{
+  margin-bottom: 0rem !important;
+  color: #878D70
+  ;
+}
+
+.product-description-container{
+  background-color: #878D70;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  margin-top: 30px;
+}
+
+.product-size{
+  color:#ffffff;
+  border: none;
+  text-decoration: none;
+  background-color: #878D70;
+}
+
+.product-description-text{
+  color: #ffffff;
+}
+
+.counter{
+  background-color: #ffffff;
+  color: #282c34;
+  padding: 20px;
+  margin: 0 30px 0 30px;
+  box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+.counter-cart{
+  padding: 10px !important;
+}
+
+.bottom-modal-sheet-bg{
+  background-color: #878D70;
+}
+
+/* .react-modal-sheet-header{
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  background-color: #878D70;
+} */
+
+
+
+.react-modal-sheet-container {
+  border-top-left-radius: 30px !important;
+  border-top-right-radius: 30px !important;
+  background-color: #878D70;
+}
+
+.add-bag-button{
+  color: #878D70 !important;
+}
+
+.bottom-modal-sheet-home-bg{
+  background-color: #B07D60 !important;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.navbar-brandname{
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.product-display-table-item{
+  text-decoration: none;
+}
+
+
+.cart-brandname{
+  color: #878D70 !important;
+}
+
+.cart-description{
+  color: #8B4D31;
+
+}
+
+.cart-line{
+  color: #878D70;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.cart-text{
+  color: #878D70;
+}
+
+.cart-explore-button{
+  background-color: #878D70 !important;
+  color: #ffffff !important;
+}
+
+.breadcrumb-text{
+  color: #62684b !important;
+  text-decoration: none !important;
+}
+
+.breadcrumb-text-end{
+  color: #878D70 !important;
+}
+
+.responsive-image{
+  width: 100% !important;
+  height:auto !important;
+}
+
+.form-style button{
+  background-color: black !important;
+}
+
+.btn-gradient {
+  background-image: linear-gradient(to right, #fff 0%, #ddd 100%);
+  color: #371812;
+  border-color: #ddd; /* Adjust border color as needed */
+  color: #333; /* Adjust text color for better contrast */
+  box-shadow: 0 0 0 1px rgba(221, 221, 221, 0.75); /* Optional subtle inset shadow */
+}
