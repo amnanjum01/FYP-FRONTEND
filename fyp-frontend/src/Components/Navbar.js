@@ -3,6 +3,8 @@ import SideMenu from './SideMenu'
 import 'react-image-crop/dist/ReactCrop.css'
 import { Link } from 'react-router-dom';
 import { CartContext } from '../Contexts/cartContext'
+import HomePage from '../Pages/HomePage';
+import { Accordion } from './SideMenu';
 
 export const ThemeContext = createContext({ showSidebar: '' }); 
 
@@ -57,3 +59,4 @@ export function Navbar() {
    </>
   )
 }
+  

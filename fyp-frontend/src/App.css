@@ -255,3 +255,35 @@
   color: #333; /* Adjust text color for better contrast */
   box-shadow: 0 0 0 1px rgba(221, 221, 221, 0.75); /* Optional subtle inset shadow */
 }
+
+
+.image-container {
+  width: 100%; /* Fills the available screen width */
+  position: relative;  
+  /* Allows for absolute positioning of the image */ 
+}
+
+
+/* .ReactCrop img {
+  object-fit: contain; 
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: auto; 
+} */
+
+.image-container-wrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-design {
+  border: 1px solid #FFFFFF;
+  padding-right:10px;
+  padding-left:10px;
+  border-radius: 50px;
+  margin-right: 10px;
+  background:  #FFFFFF; /* Adjust colors as needed */
+}
+

@@ -18,7 +18,7 @@ export default function ProductPage() {
 
   return (
     <div>
-        <ProductPageCarousel></ProductPageCarousel>
+        {productInfo && <ProductPageCarousel imageLinks={productInfo.imagePath}></ProductPageCarousel>}
         <div className="container">
           <div className="d-flex flex-column justify-content-center align-items-center">
           {productInfo && <p className='product-info fs-2 fw-medium p-0 text-uppercase'>{productInfo.brandName}</p>}
