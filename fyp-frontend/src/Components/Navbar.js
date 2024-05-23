@@ -21,7 +21,7 @@ export function Navbar() {
   
   return (
    <>
-    <nav class="navbar" style={{backgroundColor:"#B07D60"}}>
+    <nav class="navbar fixed-top mb-3" style={{backgroundColor:"#B07D60"}}>
   <form class="container-fluid d-flex justify-content-between fs-5 fw-semibold text-light">
     
     <button class="btn btn-outline-light m-1" type="button" onClick={toggleSidebar}>

@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+body{
+  padding-top: 70px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -287,3 +291,20 @@
   background:  #FFFFFF; /* Adjust colors as needed */
 }
 
+
+.search-bar{
+  color: #878D70 !important;
+  background-color: #FFFFFF;
+  border: 1px solid #878D70;
+  border-radius: 20px !important;
+
+}
+
+.white-font{
+  color: #FFFFFF !important;
+}
+
+.accordion-body-color{
+  background-color: #A8B27E;
+  shape-outside: margin-box;
+}

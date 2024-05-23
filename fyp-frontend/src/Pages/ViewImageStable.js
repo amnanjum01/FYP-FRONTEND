@@ -19,7 +19,6 @@ const ViewImagePage = () => {
     const [uploaded, setUploaded] = useState(false)
     const [hideButton, setHideButton] = useState(false)
     const [currentList, setCurrentList] = useState()
-    const [buttonEnable, setButtonEnable] = useState("disabled")
     const imageRef = useRef(null);
 
     const canvasRef = useRef(null); 
@@ -35,7 +34,6 @@ const ViewImagePage = () => {
       if (!imageFile) {
         return
       }
-      setButtonEnable("")
       setPreviewUrl(URL.createObjectURL(imageFile))
     
       return () => {
@@ -43,33 +41,11 @@ const ViewImagePage = () => {
       }
     }, [imageFile])
 
-    // const handleImageChange = (event) => {
-    //   if (event.target.files && event.target.files.length > 0) {
-    //     setImageFile(event.target.files[0]);
-    //   }
-    // };
-
     const handleImageChange = (event) => {
-      const file = event.target.files[0];
-    
-      // Check if a file is selected
-      if (!file) {
-        return;
+      if (event.target.files && event.target.files.length > 0) {
+        setImageFile(event.target.files[0]);
       }
-    
-      // Validate file type (including WebP)
-      const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-      const isValidImage = validImageTypes.includes(file.type);
-    
-      if (!isValidImage) {
-        alert("Please upload a valid image file (JPEG, PNG, GIF, or WebP).");
-        return;
-      }
-    
-      // Set the image file state
-      setImageFile(file);
     };
-    
 
     // const onImageLoaded = (image) => {
     //   if (image) {
@@ -274,7 +250,6 @@ const ViewImagePage = () => {
     id="inputGroupFile01"
   />
 )}
-<div className='d-flex justify-content-center image-container pb-3'>
 {previewUrl && (
   <ReactCrop
     crop={crop}
@@ -285,7 +260,6 @@ const ViewImagePage = () => {
     <img ref={imageRef} src={previewUrl} alt="Crop me" />
   </ReactCrop>
 )}
-</div>
 {/* {previewUrl && (
   <img src={previewUrl} alt="Preview" />
 )} */}
@@ -299,7 +273,7 @@ const ViewImagePage = () => {
   </button>
 </div> */}
   {!hideButton && <div className='d-flex justify-content-center'>
-   <button className={`btn home-search-button d-flex justify-content-center ${buttonEnable}`} onClick={()=>{
+   <button className="btn home-search-button d-flex justify-content-center" onClick={()=>{
      createCroppedImage()
    }}>Upload Image</button>
   </div>}
