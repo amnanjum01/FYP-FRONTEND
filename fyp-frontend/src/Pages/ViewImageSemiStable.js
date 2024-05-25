@@ -23,13 +23,11 @@ const ViewImagePage = () => {
     const imageRef = useRef(null);
     //Whole picture
     const [wholePrictureReady, setWholePictureReady] = useState(false)
-    const [midCrop, setMidCrop] = useState()
 
     const canvasRef = useRef(null); 
 
     useEffect(()=>{
-      console.log("Completed Crop is here: ", completedCrop)
-      console.log("Crop is here: ", crop)
+      console.log("Here is the completed crop", completedCrop)
     }, [completedCrop])
 
     const handleChangeCurrentList = (detectValue) =>{
@@ -99,14 +97,7 @@ const ViewImagePage = () => {
 
     const onCropComplete = (crop) => {
       setCompletedCrop(crop);
-      console.log(imageRef.current)
     };
-
-    const onCrop = (crop) =>{
-      setCrop(crop)
-      console.log("On crop :", crop.x, crop.y, crop.width, crop.height)
-      console.log(imageRef.current)
-    }
     
     
 
@@ -192,11 +183,27 @@ const ViewImagePage = () => {
     
     const createCroppedImage = async () => {
       if (!completedCrop || !canvasRef.current || !imageRef.current) {
-        console.log()
+        console.log("completed crop", completedCrop)
+        console.log("Here is the canvas", canvasRef.current)
+        console.log("Here is the image reference", imageRef.current)
+        const image = imageRef.current;
+        const aspect = 16 / 9;
+        const width = image.naturalWidth;
+        const height = image.naturalHeight;
+        console.log("Canvas details : ", width, height)
+        setCompletedCrop({
+          unit: 'px', // Can be 'px' or '%'
+          width: width * 0.8,
+          height: (width * 0.8),
+          x: width * 0.1,
+          y: (height - (width * 0.8)) / 2,
+          // aspect,
+        });
+        setWholePictureReady(true)
         return;
       }
   
-      console.log("Canvas details", completedCrop, canvasRef.current, imageRef.current)
+      console.log(completedCrop, canvasRef.current, imageRef.current)
       const canvas = canvasRef.current;
       const image = imageRef.current;
       const scaleX = image.naturalWidth / image.width;
@@ -230,12 +237,6 @@ const ViewImagePage = () => {
         const fileUrl = URL.createObjectURL(blob);
         console.log('Cropped image URL:', fileUrl);
         setCroppedImageBlob(blob);
-
-
-        const downloadLink = document.createElement('a');
-        downloadLink.href = fileUrl;
-        downloadLink.download = 'cropped_image.jpg'; // Set desired filename
-        downloadLink.click();
       }, 'image/jpeg');
 
     
@@ -252,22 +253,6 @@ const ViewImagePage = () => {
         setIsResultOpen(true)
       }
     },[isResultOpen])
-
-
-    
-    function onImageLoad(e) {
-      const { naturalWidth: width, naturalHeight: height } = e.currentTarget
-    
-      const crop ={
-        x:0,
-        y:0,
-        // width:width,
-        // height:height,
-      width: imageRef.current.clientWidth,
-      height: imageRef.current.clientHeight
-      }
-      setCrop(crop)
-    }
   
     return (
 
@@ -285,11 +270,11 @@ const ViewImagePage = () => {
 {previewUrl && (
   <ReactCrop
     crop={crop}
-    onChange={onCrop}
+    onChange={(newCrop) => setCrop(newCrop)}
     // onImageLoaded={onImageLoaded}
     onComplete={onCropComplete}
   >
-    <img ref={imageRef} src={previewUrl} alt="Crop me" onLoad={onImageLoad} />
+    <img ref={imageRef} src={previewUrl} alt="Crop me" />
   </ReactCrop>
 )}
 </div>
@@ -299,7 +284,7 @@ const ViewImagePage = () => {
    }}>Upload Image</button>
   </div>}
 
-  <canvas ref={canvasRef} style={{display:"none"}}/>
+  <canvas ref={canvasRef}/>
   
     <div className='mt-5'>
        {uploaded &&
