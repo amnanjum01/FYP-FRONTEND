@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 //Modal Check
 import HomeDisplay from '../Components/HomeDisplay';
 import 'react-image-crop/dist/ReactCrop.css'
+import { Navbar } from '../Components/Navbar';
+//CHeck
+import DummyProductPage from './DummyProductPage';
 
 const ViewImagePage = () => { 
     const [crop, setCrop] = useState();
@@ -23,11 +26,14 @@ const ViewImagePage = () => {
     const imageRef = useRef(null);
     //Whole picture
     const [wholePrictureReady, setWholePictureReady] = useState(false)
-
+    const [midCrop, setMidCrop] = useState()
+    //current list 
+    const [currentItem, setCurrentItem] = useState()
     const canvasRef = useRef(null); 
 
     useEffect(()=>{
-      console.log("Here is the completed crop", completedCrop)
+      console.log("Completed Crop is here: ", completedCrop)
+      console.log("Crop is here: ", crop)
     }, [completedCrop])
 
     const handleChangeCurrentList = (detectValue) =>{
@@ -35,6 +41,7 @@ const ViewImagePage = () => {
         return product.detection == detectValue
       })
       setCurrentList(reset[0])
+      setCurrentItem(detectValue)
     }
 
     useEffect(() => {
@@ -98,6 +105,10 @@ const ViewImagePage = () => {
     const onCropComplete = (crop) => {
       setCompletedCrop(crop);
     };
+
+    const onCrop = (crop) =>{
+      setCrop(crop)
+    }
     
     
 
@@ -183,27 +194,11 @@ const ViewImagePage = () => {
     
     const createCroppedImage = async () => {
       if (!completedCrop || !canvasRef.current || !imageRef.current) {
-        console.log("completed crop", completedCrop)
-        console.log("Here is the canvas", canvasRef.current)
-        console.log("Here is the image reference", imageRef.current)
-        const image = imageRef.current;
-        const aspect = 16 / 9;
-        const width = image.naturalWidth;
-        const height = image.naturalHeight;
-        console.log("Canvas details : ", width, height)
-        setCompletedCrop({
-          unit: 'px', // Can be 'px' or '%'
-          width: width * 0.8,
-          height: (width * 0.8),
-          x: width * 0.1,
-          y: (height - (width * 0.8)) / 2,
-          // aspect,
-        });
-        setWholePictureReady(true)
+        console.log()
         return;
       }
   
-      console.log(completedCrop, canvasRef.current, imageRef.current)
+      console.log("Canvas details", completedCrop, canvasRef.current, imageRef.current)
       const canvas = canvasRef.current;
       const image = imageRef.current;
       const scaleX = image.naturalWidth / image.width;
@@ -248,48 +243,78 @@ const ViewImagePage = () => {
     };
   
 
-    useEffect(()=>{
-      if(isResultOpen == false){
-        setIsResultOpen(true)
+    // useEffect(()=>{
+    //   if(isResultOpen == false){
+    //     setIsResultOpen(true)
+    //   }
+    // },[isResultOpen])
+
+
+    
+    function onImageLoad(e) {
+      const { naturalWidth: width, naturalHeight: height } = e.currentTarget
+    
+      const crop ={
+        x:0,
+        y:0,
+        // width:width,
+        // height:height,
+      width: imageRef.current.clientWidth,
+      height: imageRef.current.clientHeight
       }
-    },[isResultOpen])
+      setCrop(crop)
+    }
   
     return (
 
 <>
-
+<Navbar backNavigation={true}></Navbar>
 {!previewUrl && (
-  <input
+  <div className='m-3'>
+
+<input
     type="file"
     className="form-control form-style"
     onChange={handleImageChange}
     id="inputGroupFile01"
   />
+  </div>
 )}
 <div className='d-flex justify-content-center image-container pb-3'>
 {previewUrl && (
   <ReactCrop
     crop={crop}
-    onChange={(newCrop) => setCrop(newCrop)}
+    onChange={onCrop}
     // onImageLoaded={onImageLoaded}
     onComplete={onCropComplete}
   >
-    <img ref={imageRef} src={previewUrl} alt="Crop me" />
+    <img ref={imageRef} src={previewUrl} alt="Crop me" onLoad={onImageLoad} />
   </ReactCrop>
 )}
 </div>
-  {!hideButton && <div className='d-flex justify-content-center'>
+  {/* {!hideButton && <div className='d-flex justify-content-center mb-5'>
    <button className={`btn home-search-button d-flex justify-content-center ${buttonEnable}`} onClick={()=>{
      createCroppedImage()
    }}>Upload Image</button>
-  </div>}
+  </div>} */}
 
-  <canvas ref={canvasRef}/>
+
+
+<div className='d-flex justify-content-center mb-5'>
+   <button className={`btn home-search-button d-flex justify-content-center ${buttonEnable}`} onClick={()=>{
+    setProducts()
+     createCroppedImage()
+     
+   }}>Upload Image</button>
+  </div>
+
+  <canvas ref={canvasRef} style={{display:"none"}}/>
   
     <div className='mt-5'>
-       {uploaded &&
+    
+    {uploaded &&
   
-  <Sheet isOpen={isResultOpen} onClose={() => setIsResultOpen(false)} snapPoints={[600, 400]}
+  <Sheet isOpen={isResultOpen} onClose={() => setIsResultOpen(false)} snapPoints={[600, 400, 50, 0]}
     initialSnap={1} >
     <Sheet.Container  className='bottom-modal-sheet-home-bg' >
         <Sheet.Header></Sheet.Header>
@@ -298,7 +323,7 @@ const ViewImagePage = () => {
       {products && 
           products.map((product)=>{
             return(
-              <button type="button" className="btn btn-light ms-2 text-nowrap" onClick={()=>handleChangeCurrentList(product.detection)}>{product.detection}</button>
+              <button type="button" className={`btn btn-light ms-2 text-nowrap cart-description ${(product.detection == currentItem)? "text-decoration-underline fw-bold" : ""}`} onClick={()=>handleChangeCurrentList(product.detection)}>{product.detection}</button>
             )
           })
         }
@@ -315,6 +340,10 @@ const ViewImagePage = () => {
     </Sheet.Container>
     <Sheet.Backdrop />
   </Sheet>}
+
+
+{false && <DummyProductPage ></DummyProductPage>}
+
    </div>
   
 </>

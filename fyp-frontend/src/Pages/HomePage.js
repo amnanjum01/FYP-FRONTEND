@@ -3,6 +3,7 @@ import Sheet from 'react-modal-sheet';
 import HomeSearch from '../Components/HomeSearch'
 import HomeDisplay from '../Components/HomeDisplay'
 import { ThemeContext } from '../Components/Navbar';
+import { Navbar } from '../Components/Navbar';
 
 
  
@@ -12,10 +13,13 @@ export default function HomePage() {
 
   
   const getHomeProducts = async()=>{
-    const response = await fetch('http://localhost:5000/products/all-products')
-    const data = await response.json()
-    setProducts(data.products)
-    console.log(data.products)
+    try {
+      const response = await fetch('http://localhost:5000/products/all-products')
+      const data = await response.json()
+      setProducts(data.products)
+    } catch (error) {
+      console.log("Server is down.")
+    }
   }
 
   const callbackFromChild = (child) =>{
@@ -27,6 +31,10 @@ export default function HomePage() {
   },[])
 
   return (
+    <>
+    <Navbar backNavigation={false}>
+
+    </Navbar>
     <div>
        
         <HomeSearch viewProductButtonState={isHomeSheetOpen} viewProductButton={callbackFromChild}></HomeSearch>
@@ -45,5 +53,6 @@ export default function HomePage() {
         <Sheet.Backdrop />
       </Sheet>
     </div>
+    </>
   )
 }

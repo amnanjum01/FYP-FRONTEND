@@ -176,13 +176,18 @@ export const CartProvider = ({children})=>{
             return 0
         }
     }
+
+    const emptyCart = () =>{
+        setCartItems([])
+    }
+    
     useEffect(()=>{
         console.log(createCartList())
     },[cartItems])
 
 
     return(
-    <CartContext.Provider value={{increaseSizeQuantity, reduceSizeQuantity, removeSizeFromCart, addToCart, getCartItemsCount, getCartItems, getObjectLocation, updateQuantity, getCartTotal, removeProductFromCart, createCartList}}>
+    <CartContext.Provider value={{increaseSizeQuantity, reduceSizeQuantity, removeSizeFromCart, addToCart, getCartItemsCount, getCartItems, getObjectLocation, updateQuantity, getCartTotal, removeProductFromCart, createCartList, emptyCart}}>
         {children}
     </CartContext.Provider>
     )

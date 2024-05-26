@@ -1,7 +1,7 @@
 import React, {useState,useEffect, createContext, useContext} from 'react'
 import SideMenu from './SideMenu'
 import 'react-image-crop/dist/ReactCrop.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CartContext } from '../Contexts/cartContext'
 import HomePage from '../Pages/HomePage';
 import { Accordion } from './SideMenu';
@@ -9,7 +9,7 @@ import { Accordion } from './SideMenu';
 export const ThemeContext = createContext({ showSidebar: '' }); 
 
 
-export function Navbar() {
+export function Navbar({backNavigation}) {
     const [file, setFile] = useState()
     const [previewUrl, setPreviewUrl] = useState()
     const [search, setSearch] = useState('')
@@ -18,18 +18,32 @@ export function Navbar() {
     const toggleSidebar = () =>{
         setShowSidebar(showSidebar === '' ? 'show' : '')
     }
+
+    const navigate = useNavigate();
   
   return (
    <>
     <nav class="navbar fixed-top mb-3" style={{backgroundColor:"#B07D60"}}>
   <form class="container-fluid d-flex justify-content-between fs-5 fw-semibold text-light">
-    
-    <button class="btn btn-outline-light m-1" type="button" onClick={toggleSidebar}>
+ 
+   {backNavigation == false &&  <button class="btn btn-outline-light m-1" type="button" onClick={toggleSidebar}>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F8F9FA" class="bi bi-list" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
 </svg>
 
+    </button>}
+
+
+    {backNavigation == true && 
+      <button class="btn btn-outline-light m-1" type="button" onClick={()=>navigate(-1)}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+</svg>
+
     </button>
+   }
+
+
 <Link to="/" className='navbar-brandname'>BAGSEARCH</Link>
 
 

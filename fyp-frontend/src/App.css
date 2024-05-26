@@ -215,7 +215,7 @@ body{
 }
 
 .cart-description{
-  color: #8B4D31;
+  color: #8B4D31 !important;
 
 }
 

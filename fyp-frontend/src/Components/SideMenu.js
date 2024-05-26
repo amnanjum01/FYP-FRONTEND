@@ -48,15 +48,23 @@ const Accordion = ({sidebarMove})=>{
     const { showSidebar, toggleSidebar } = useContext(ThemeContext);
 
     const getSideMenuTitles = async() =>{
-        const response = await fetch("http://localhost:5000/products/category-wise-labels/clothes")
-        const data = await response.json()
-        setContents([data])
+        try {
+          const response = await fetch("http://localhost:5000/products/category-wise-labels/clothes")
+          const data = await response.json()
+          setContents([data])
+        } catch (error) {
+          console.log("Server is down.")
+        }
     }
 
     const getSideMenuTitlesShoes = async()=>{
-      const response = await fetch("http://localhost:5000/products/category-wise-labels/shoes")
-      const data = await response.json()
-      setShoesContents([data])
+      try {
+        const response = await fetch("http://localhost:5000/products/category-wise-labels/shoes")
+        const data = await response.json()
+        setShoesContents([data])
+      } catch (error) {
+        console.log("Server is down.")
+      }
       }
 
     useEffect(()=>{

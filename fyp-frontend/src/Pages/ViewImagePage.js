@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 //Modal Check
 import HomeDisplay from '../Components/HomeDisplay';
 import 'react-image-crop/dist/ReactCrop.css'
+import { Navbar } from '../Components/Navbar';
+//CHeck
+import DummyProductPage from './DummyProductPage';
 
 const ViewImagePage = () => { 
     const [crop, setCrop] = useState();
@@ -24,7 +27,8 @@ const ViewImagePage = () => {
     //Whole picture
     const [wholePrictureReady, setWholePictureReady] = useState(false)
     const [midCrop, setMidCrop] = useState()
-
+    //current list 
+    const [currentItem, setCurrentItem] = useState()
     const canvasRef = useRef(null); 
 
     useEffect(()=>{
@@ -37,6 +41,7 @@ const ViewImagePage = () => {
         return product.detection == detectValue
       })
       setCurrentList(reset[0])
+      setCurrentItem(detectValue)
     }
 
     useEffect(() => {
@@ -99,13 +104,10 @@ const ViewImagePage = () => {
 
     const onCropComplete = (crop) => {
       setCompletedCrop(crop);
-      console.log(imageRef.current)
     };
 
     const onCrop = (crop) =>{
       setCrop(crop)
-      console.log("On crop :", crop.x, crop.y, crop.width, crop.height)
-      console.log(imageRef.current)
     }
     
     
@@ -230,12 +232,6 @@ const ViewImagePage = () => {
         const fileUrl = URL.createObjectURL(blob);
         console.log('Cropped image URL:', fileUrl);
         setCroppedImageBlob(blob);
-
-
-        const downloadLink = document.createElement('a');
-        downloadLink.href = fileUrl;
-        downloadLink.download = 'cropped_image.jpg'; // Set desired filename
-        downloadLink.click();
       }, 'image/jpeg');
 
     
@@ -247,11 +243,11 @@ const ViewImagePage = () => {
     };
   
 
-    useEffect(()=>{
-      if(isResultOpen == false){
-        setIsResultOpen(true)
-      }
-    },[isResultOpen])
+    // useEffect(()=>{
+    //   if(isResultOpen == false){
+    //     setIsResultOpen(true)
+    //   }
+    // },[isResultOpen])
 
 
     
@@ -272,14 +268,17 @@ const ViewImagePage = () => {
     return (
 
 <>
-
+<Navbar backNavigation={true}></Navbar>
 {!previewUrl && (
-  <input
+  <div className='m-3'>
+
+<input
     type="file"
     className="form-control form-style"
     onChange={handleImageChange}
     id="inputGroupFile01"
   />
+  </div>
 )}
 <div className='d-flex justify-content-center image-container pb-3'>
 {previewUrl && (
@@ -293,18 +292,29 @@ const ViewImagePage = () => {
   </ReactCrop>
 )}
 </div>
-  {!hideButton && <div className='d-flex justify-content-center'>
+  {/* {!hideButton && <div className='d-flex justify-content-center mb-5'>
    <button className={`btn home-search-button d-flex justify-content-center ${buttonEnable}`} onClick={()=>{
      createCroppedImage()
    }}>Upload Image</button>
-  </div>}
+  </div>} */}
+
+
+
+<div className='d-flex justify-content-center mb-5'>
+   <button className={`btn home-search-button d-flex justify-content-center ${buttonEnable}`} onClick={()=>{
+    setProducts()
+     createCroppedImage()
+     
+   }}>Upload Image</button>
+  </div>
 
   <canvas ref={canvasRef} style={{display:"none"}}/>
   
     <div className='mt-5'>
-       {uploaded &&
+    
+    {uploaded &&
   
-  <Sheet isOpen={isResultOpen} onClose={() => setIsResultOpen(false)} snapPoints={[600, 400]}
+  <Sheet isOpen={isResultOpen} onClose={() => setIsResultOpen(false)} snapPoints={[600, 400, 50, 0]}
     initialSnap={1} >
     <Sheet.Container  className='bottom-modal-sheet-home-bg' >
         <Sheet.Header></Sheet.Header>
@@ -313,7 +323,7 @@ const ViewImagePage = () => {
       {products && 
           products.map((product)=>{
             return(
-              <button type="button" className="btn btn-light ms-2 text-nowrap" onClick={()=>handleChangeCurrentList(product.detection)}>{product.detection}</button>
+              <button type="button" className={`btn btn-light ms-2 text-nowrap cart-description ${(product.detection == currentItem)? "text-decoration-underline fw-bold" : ""}`} onClick={()=>handleChangeCurrentList(product.detection)}>{product.detection}</button>
             )
           })
         }
@@ -330,6 +340,10 @@ const ViewImagePage = () => {
     </Sheet.Container>
     <Sheet.Backdrop />
   </Sheet>}
+
+
+{false && <DummyProductPage ></DummyProductPage>}
+
    </div>
   
 </>

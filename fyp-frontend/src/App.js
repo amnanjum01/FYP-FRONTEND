@@ -12,11 +12,12 @@ import CartPageProductTile from './Components/CartPageProductTile';
 import CartPage from './Pages/CartPage';
 import LabelWisePage from './Pages/LabelWisePage';
 import DummyImageUpload from './Pages/DummyImageUpload';
+import CheckoutPage from './Pages/CheckoutPage';
 function App() {
   return (
     <CartProvider>
       <BrowserRouter>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
       <Routes>
           <Route path="/" element={<HomePage/>} />
           <Route path="/results" element={<ResultPage/>} />
@@ -28,6 +29,7 @@ function App() {
           {/**Testing*/}
           <Route path="product-tile" element={<CartPageProductTile></CartPageProductTile>}></Route>
           <Route path='/dummy-image-upload' element={<DummyImageUpload></DummyImageUpload>}></Route>
+          <Route path='/checkout' element={<CheckoutPage></CheckoutPage>}></Route>
         </Routes>
       </BrowserRouter>  
     </CartProvider>

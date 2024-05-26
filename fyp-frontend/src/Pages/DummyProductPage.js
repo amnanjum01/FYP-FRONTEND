@@ -4,8 +4,7 @@ import ProductPageCarousel from '../Components/ProductPageCarousel'
 import ProductPageDescription from '../Components/ProductPageDescription'
 import { Navbar } from '../Components/Navbar'
 
-export default function ProductPage() {
-    const {sku} = useParams() 
+export default function DummyProductPage({sku}) {
     const [productInfo, setProductInfo] = useState()
     const fetchProduct = async() =>{
         try {
