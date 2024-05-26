@@ -3,11 +3,11 @@ import ReactCrop from 'react-image-crop'
 import Sheet from 'react-modal-sheet';
 import { Link } from 'react-router-dom';
 //Modal Check
-import HomeDisplay from '../Components/HomeDisplay';
+import ResultsDisplay from '../Components/ResultsDisplay';
 import 'react-image-crop/dist/ReactCrop.css'
 import { Navbar } from '../Components/Navbar';
 //CHeck
-import DummyProductPage from './DummyProductPage';
+import ResultsProductPage from './ResultsProductPage';
 
 const ViewImagePage = () => { 
     const [crop, setCrop] = useState();
@@ -30,6 +30,18 @@ const ViewImagePage = () => {
     //current list 
     const [currentItem, setCurrentItem] = useState()
     const canvasRef = useRef(null); 
+    //Sku
+    const [currentSKU, setSKU] = useState()
+    const [showItem, setShowItem] = useState(false)
+
+
+    const setCurrentSKU  = (item) =>{
+      setSKU(item)
+      setShowItem(true)
+    }
+    useEffect(()=>{
+      console.log("Here is the current sku", currentSKU)
+    },[currentSKU])
 
     useEffect(()=>{
       console.log("Completed Crop is here: ", completedCrop)
@@ -269,7 +281,7 @@ const ViewImagePage = () => {
 
 <>
 <Navbar backNavigation={true}></Navbar>
-{!previewUrl && (
+{(!previewUrl && !showItem) && (
   <div className='m-3'>
 
 <input
@@ -280,40 +292,38 @@ const ViewImagePage = () => {
   />
   </div>
 )}
+{(previewUrl && !showItem) && 
 <div className='d-flex justify-content-center image-container pb-3'>
-{previewUrl && (
+
   <ReactCrop
     crop={crop}
     onChange={onCrop}
-    // onImageLoaded={onImageLoaded}
+    
     onComplete={onCropComplete}
   >
     <img ref={imageRef} src={previewUrl} alt="Crop me" onLoad={onImageLoad} />
   </ReactCrop>
-)}
+
 </div>
-  {/* {!hideButton && <div className='d-flex justify-content-center mb-5'>
-   <button className={`btn home-search-button d-flex justify-content-center ${buttonEnable}`} onClick={()=>{
-     createCroppedImage()
-   }}>Upload Image</button>
-  </div>} */}
+}
 
 
 
-<div className='d-flex justify-content-center mb-5'>
+
+{(!showItem) && <div className='d-flex justify-content-center mb-5'>
    <button className={`btn home-search-button d-flex justify-content-center ${buttonEnable}`} onClick={()=>{
     setProducts()
      createCroppedImage()
      
    }}>Upload Image</button>
-  </div>
+  </div>}
 
   <canvas ref={canvasRef} style={{display:"none"}}/>
   
-    <div className='mt-5'>
     
-    {uploaded &&
-  
+    
+    {(uploaded && !showItem)&&
+  <div className='mt-5'>
   <Sheet isOpen={isResultOpen} onClose={() => setIsResultOpen(false)} snapPoints={[600, 400, 50, 0]}
     initialSnap={1} >
     <Sheet.Container  className='bottom-modal-sheet-home-bg' >
@@ -334,20 +344,33 @@ const ViewImagePage = () => {
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>}
-        {products && <HomeDisplay products={currentList.products} heading={currentList.detection}></HomeDisplay>}
+        {products && <ResultsDisplay products={currentList.products} heading={currentList.detection} skuSetter={setCurrentSKU}></ResultsDisplay>}
         </Sheet.Scroller>
       </Sheet.Content>
     </Sheet.Container>
     <Sheet.Backdrop />
-  </Sheet>}
+  </Sheet>
+  
+  </div>
+  }
 
 
-{false && <DummyProductPage ></DummyProductPage>}
+{showItem && <ResultsProductPage sku={currentSKU} returnBarFunction={setShowItem}></ResultsProductPage>}
 
-   </div>
+   
   
 </>
     );
   };
   
 export default ViewImagePage;
+
+
+
+  {/* {!hideButton && <div className='d-flex justify-content-center mb-5'>
+   <button className={`btn home-search-button d-flex justify-content-center ${buttonEnable}`} onClick={()=>{
+     createCroppedImage()
+   }}>Upload Image</button>
+  </div>} */}
+
+  // onImageLoaded={onImageLoaded}

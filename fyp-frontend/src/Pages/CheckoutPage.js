@@ -26,7 +26,8 @@ export default function CheckoutPage() {
   return (
    <>
     <Navbar backNavigation={true}></Navbar>
-    {(createCartList().length > 0 && inputForm) &&  <form className='d-flex justify-content-center flex-column align-items-center' id="checkout-form"  onSubmit={handleSubmit}>
+   <div className='pt-3'>
+   {(createCartList().length > 0 && inputForm) &&  <form className='d-flex justify-content-center flex-column align-items-center' id="checkout-form"  onSubmit={handleSubmit}>
       <p className='fw-light fs-1 cart-description'>Checkout</p>
       <div class="input-group mb-3 ps-3 pe-3">
   <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder='Enter your name' onChange={(e)=> setName(e.target.value)} required/>
@@ -50,6 +51,7 @@ Order {orderId} has been placed.
     (createCartList().length == 0 && message == true && inputForm == false) && 
     <EmptyCart></EmptyCart>
 }
+   </div>
    </>
   )
 }
