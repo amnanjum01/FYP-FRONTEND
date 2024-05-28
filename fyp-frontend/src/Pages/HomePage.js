@@ -32,7 +32,7 @@ export default function HomePage() {
 
   return (
     <>
-    <Navbar backNavigation={false}>
+    <Navbar >
 
     </Navbar>
     <div>
@@ -44,10 +44,10 @@ export default function HomePage() {
 
           <Sheet isOpen={isHomeSheetOpen} onClose={() => setHomeSheetOpen(false)} snapPoints={[600, 400]}
         initialSnap={1} >
-        <Sheet.Container  className='bottom-modal-sheet-home-bg' >
+        <Sheet.Container  className='bottom-modal-sheet-home-bg'>
             <Sheet.Header></Sheet.Header>
           <Sheet.Content>
-          <Sheet.Scroller>{products && <HomeDisplay products={products}></HomeDisplay>}</Sheet.Scroller>
+          <Sheet.Scroller className='react-modal-sheet-scroller'>{products && <HomeDisplay products={products}></HomeDisplay>}</Sheet.Scroller>
           </Sheet.Content>
         </Sheet.Container>
         <Sheet.Backdrop />

@@ -24,7 +24,7 @@ export default function LabelWisePage() {
     },[])
   return (
    <>
-   <Navbar backNavigation={false}>   </Navbar>
+   <Navbar>   </Navbar>
    <div>
         <nav aria-label="breadcrumb">
   <ol class="breadcrumb  ps-3">

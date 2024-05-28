@@ -129,7 +129,7 @@ export default function SideMenu() {
     const { showSidebar, toggleSidebar } = useContext(ThemeContext);
     
   return (
-        <div class={`side-menu offcanvas offcanvas-start ${showSidebar}`} tabindex="-1" id="offcanvas" style={{ zIndex: 10000000, position: 'fixed' }} aria-labelledby="offcanvasLabel">
+        <div class={`side-menu offcanvas offcanvas-end ${showSidebar}`} tabindex="-1" id="offcanvas" style={{ zIndex: 10000000, position: 'fixed' }} aria-labelledby="offcanvasLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title white-font" id="offcanvasLabel">Explore Bagsearch</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" onClick={toggleSidebar}></button>

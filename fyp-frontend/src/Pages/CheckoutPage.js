@@ -25,7 +25,7 @@ export default function CheckoutPage() {
     }
   return (
    <>
-    <Navbar backNavigation={true}></Navbar>
+    <Navbar></Navbar>
    <div className='pt-3'>
    {(createCartList().length > 0 && inputForm) &&  <form className='d-flex justify-content-center flex-column align-items-center' id="checkout-form"  onSubmit={handleSubmit}>
       <p className='fw-light fs-1 cart-description'>Checkout</p>

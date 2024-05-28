@@ -11,7 +11,7 @@ const CartPage = () => {
 
     return (
         <>
-        <Navbar backNavigation={false}></Navbar>
+        <Navbar></Navbar>
         <div>
             {(createCartList().length > 0) && 
             <p className='fs-1 cart-text d-flex justify-content-center pt-2'>MY BAG</p>

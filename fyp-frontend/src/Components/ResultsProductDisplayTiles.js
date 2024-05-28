@@ -6,7 +6,7 @@ export default function ResultsProductDisplayTiles({item, skuSetter}) {
 
     <>
        {item && <Link to="#" className="product-display-table-item col-6 col-lg-3">
-        <div className="card rounded-0" onClick={()=>skuSetter(item.sku)}>
+        <div className="card rounded-0 h-100" onClick={()=>skuSetter(item.sku)}>
     <img className="card-img-top rounded-0" src={item.imagePath[0].imgUrl} alt="Card image cap"/>
     <div className="card-body">
         <h5 className="card-title text-start text-uppercase">{item.brandName}</h5>

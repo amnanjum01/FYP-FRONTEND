@@ -9,7 +9,7 @@ import { Accordion } from './SideMenu';
 export const ThemeContext = createContext({ showSidebar: '' }); 
 
 
-export function Navbar({backNavigation}) {
+export function Navbar({navbarFunction, searchBack}) {
     const [file, setFile] = useState()
     const [previewUrl, setPreviewUrl] = useState()
     const [search, setSearch] = useState('')
@@ -23,32 +23,32 @@ export function Navbar({backNavigation}) {
   
   return (
    <>
-    <nav class="navbar fixed-top mb-3" style={{backgroundColor:"#B07D60"}}>
+    <nav class="navbar nav-image fixed-top mb-3">
   <form class="container-fluid d-flex justify-content-between fs-5 fw-semibold text-light">
  
-   {backNavigation == false &&  <button class="btn btn-outline-light m-1" type="button" onClick={toggleSidebar}>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F8F9FA" class="bi bi-list" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+ {searchBack && <button class="btn btn-outline-light m-1" type="button" onClick={()=>navbarFunction(false)}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
 </svg>
 
     </button>}
 
 
-    {backNavigation == true && 
-      <button class="btn btn-outline-light m-1" type="button" onClick={()=>navigate(-1)}>
+    
+      {!searchBack && <button class="btn btn-outline-light m-1" type="button" onClick={()=>navigate(-1)}>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
 </svg>
 
-    </button>
-   }
+    </button>}
+   
 
 
 <Link to="/" className='navbar-brandname'>BAGSEARCH</Link>
 
 
 
-            <Link to={'/my-cart'}>
+            {/* <Link to={'/my-cart'}>
             <button className="btn btn-outline-light position-relative me-2" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F8F9FA" className="bi bi-bag-check" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
@@ -60,7 +60,20 @@ export function Navbar({backNavigation}) {
               </span>
                }
             </button>
-            </Link>
+            </Link> */}
+
+
+           <button class="btn btn-outline-light position-relative me-2 m-1" type="button" onClick={toggleSidebar}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F8F9FA" class="bi bi-list" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+</svg>
+{(getCartItemsCount() > 0) && 
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {getCartItemsCount()}
+              </span>
+               }
+
+    </button>
            
 
   </form>

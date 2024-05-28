@@ -24,7 +24,7 @@ export default function ProductPage() {
   return (
     
 <>
-<Navbar backNavigation={false}></Navbar>
+<Navbar></Navbar>
 <div>
         {productInfo && <ProductPageCarousel imageLinks={productInfo.imagePath}></ProductPageCarousel>}
         <div className="container">

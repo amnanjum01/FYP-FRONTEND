@@ -280,7 +280,7 @@ const ViewImagePage = () => {
     return (
 
 <>
-<Navbar backNavigation={true}></Navbar>
+<Navbar></Navbar>
 {(!previewUrl && !showItem) && (
   <div className='m-3'>
 
@@ -355,7 +355,7 @@ const ViewImagePage = () => {
   }
 
 
-{showItem && <ResultsProductPage sku={currentSKU} returnBarFunction={setShowItem}></ResultsProductPage>}
+{showItem && <ResultsProductPage sku={currentSKU} showOrNot={showItem} returnBarFunction={setShowItem}></ResultsProductPage>}
 
    
   

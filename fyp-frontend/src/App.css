@@ -69,7 +69,7 @@ body{
 }
 
 .homepage-products{
-  background-color: #B07D60 !important;
+  background-color: transparent !important;
   color: #ffffff;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
@@ -173,9 +173,13 @@ body{
 }
 
 .bottom-modal-sheet-bg{
-  background-color: #878D70;
+  background-color: #B07D60;
 }
 
+
+.bottom-modal-sheet-content{
+  background-color: transparent !important;
+}
 /* .react-modal-sheet-header{
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
@@ -187,15 +191,25 @@ body{
 .react-modal-sheet-container {
   border-top-left-radius: 30px !important;
   border-top-right-radius: 30px !important;
-  background-color: #878D70;
+  /* background-color: #878D70; */
+  background-image: linear-gradient(to bottom, #AC7A5C, #371812);
+}
+
+.react-modal-sheet-scroller{
+  background-color: transparent !important;
 }
 
 .add-bag-button{
   color: #878D70 !important;
 }
 
-.bottom-modal-sheet-home-bg{
+/* .bottom-modal-sheet-home-bg{
   background-color: #B07D60 !important;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+} */
+.bottom-modal-sheet-home-bg{
+  background-color: transparent!important;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
 }
@@ -203,6 +217,12 @@ body{
 .navbar-brandname{
   text-decoration: none;
   color: #ffffff;
+}
+
+.nav-image{
+  background-image:url("navbar-background.svg") !important;
+  background-size: auto;
+  background-position: center;
 }
 
 .product-display-table-item{
