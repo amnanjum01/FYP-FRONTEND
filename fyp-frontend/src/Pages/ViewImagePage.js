@@ -8,6 +8,7 @@ import 'react-image-crop/dist/ReactCrop.css'
 import { Navbar } from '../Components/Navbar';
 //CHeck
 import ResultsProductPage from './ResultsProductPage';
+import { functionFindValue } from '../Utils/categoryNameValue';
 
 const ViewImagePage = () => { 
     const [crop, setCrop] = useState();
@@ -128,7 +129,7 @@ const ViewImagePage = () => {
       const formData = new FormData();
       formData.append('image', croppedImageBlob); // Optional filename
   try {
-    const response = await fetch('http://localhost:5000/products/detect', {
+    const response = await fetch('http://192.168.100.34:5000/products/detect', {
       method: 'POST',
       body: formData,
     });
@@ -292,16 +293,19 @@ const ViewImagePage = () => {
   />
   </div>
 )}
-{(previewUrl && !showItem) && 
-<div className='d-flex justify-content-center image-container pb-3'>
+{
+
+(previewUrl && !showItem) 
+
+&& 
+<div className='d-flex justify-content-center image-container pb-3 ps-5 pe-5' style={{overflow:"auto"}}>
 
   <ReactCrop
     crop={crop}
     onChange={onCrop}
-    
     onComplete={onCropComplete}
   >
-    <img ref={imageRef} src={previewUrl} alt="Crop me" onLoad={onImageLoad} />
+    <img ref={imageRef} src={"https://firebasestorage.googleapis.com/v0/b/fyp-data-bagsearch.appspot.com/o/boots-1-b.webp?alt=media&token=8c14bd17-bcb9-404b-81d3-87d8ccdbea7e"} alt="Crop me" onLoad={onImageLoad} />
   </ReactCrop>
 
 </div>
@@ -333,7 +337,7 @@ const ViewImagePage = () => {
       {products && 
           products.map((product)=>{
             return(
-              <button type="button" className={`btn btn-light ms-2 text-nowrap cart-description ${(product.detection == currentItem)? "text-decoration-underline fw-bold" : ""}`} onClick={()=>handleChangeCurrentList(product.detection)}>{product.detection}</button>
+              <button type="button" className={`btn btn-light ms-2 text-nowrap cart-description ${(product.detection == currentItem)? "text-decoration-underline fw-bold" : ""}`} onClick={()=>handleChangeCurrentList(product.detection)}>{functionFindValue(product.detection)}</button>
             )
           })
         }
@@ -344,7 +348,7 @@ const ViewImagePage = () => {
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>}
-        {products && <ResultsDisplay products={currentList.products} heading={currentList.detection} skuSetter={setCurrentSKU}></ResultsDisplay>}
+        {products && <ResultsDisplay products={currentList.products} heading={functionFindValue(currentList.detection)} skuSetter={setCurrentSKU}></ResultsDisplay>}
         </Sheet.Scroller>
       </Sheet.Content>
     </Sheet.Container>

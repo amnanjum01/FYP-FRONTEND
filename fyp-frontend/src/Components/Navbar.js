@@ -8,7 +8,7 @@ import { Accordion } from './SideMenu';
 
 export const ThemeContext = createContext({ showSidebar: '' }); 
 
-
+ 
 export function Navbar({navbarFunction, searchBack}) {
     const [file, setFile] = useState()
     const [previewUrl, setPreviewUrl] = useState()
@@ -26,8 +26,8 @@ export function Navbar({navbarFunction, searchBack}) {
     <nav class="navbar nav-image fixed-top mb-3">
   <form class="container-fluid d-flex justify-content-between fs-5 fw-semibold text-light">
  
- {searchBack && <button class="btn btn-outline-light m-1" type="button" onClick={()=>navbarFunction(false)}>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+ {searchBack && <button class="btn btn-light btn-outline-light m-1 rounded-circle d-flex text-align-center p-2" type="button" onClick={()=>navbarFunction(false)}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#8B4D31" class="bi bi-chevron-left" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
 </svg>
 
@@ -35,8 +35,8 @@ export function Navbar({navbarFunction, searchBack}) {
 
 
     
-      {!searchBack && <button class="btn btn-outline-light m-1" type="button" onClick={()=>navigate(-1)}>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+      {!searchBack && <button class="btn btn-light btn-outline-light m-1 rounded-circle d-flex text-align-center p-2" type="button" onClick={()=>navigate(-1)}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#8B4D31" class="bi bi-chevron-left" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
 </svg>
 
@@ -63,8 +63,8 @@ export function Navbar({navbarFunction, searchBack}) {
             </Link> */}
 
 
-           <button class="btn btn-outline-light position-relative me-2 m-1" type="button" onClick={toggleSidebar}>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F8F9FA" class="bi bi-list" viewBox="0 0 16 16">
+           <button class="btn btn-outline-light btn-light position-relative me-2 m-1 rounded-circle d-flex text-align-center p-2" type="button" onClick={toggleSidebar}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#8B4D31" class="bi bi-list" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
 </svg>
 {(getCartItemsCount() > 0) && 

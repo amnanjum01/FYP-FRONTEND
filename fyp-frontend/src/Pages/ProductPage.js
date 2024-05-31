@@ -9,7 +9,7 @@ export default function ProductPage() {
     const [productInfo, setProductInfo] = useState()
     const fetchProduct = async() =>{
         try {
-          const response = await fetch(`http://localhost:5000/products/find-product/${sku}`)
+          const response = await fetch(`http://192.168.100.34:5000/products/find-product/${sku}`)
           const data = await response.json()
           setProductInfo(data) 
         } catch (error) {

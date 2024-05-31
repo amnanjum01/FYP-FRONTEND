@@ -14,7 +14,7 @@ export default function HomePage() {
   
   const getHomeProducts = async()=>{
     try {
-      const response = await fetch('http://localhost:5000/products/all-products')
+      const response = await fetch('http://192.168.100.34:5000/products/all-products')
       const data = await response.json()
       setProducts(data.products)
     } catch (error) {
