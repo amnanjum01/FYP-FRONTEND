@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react'
 import ReactCrop from 'react-image-crop'
 import Sheet from 'react-modal-sheet';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 //Modal Check
 import ResultsDisplay from '../Components/ResultsDisplay';
 import 'react-image-crop/dist/ReactCrop.css'
@@ -10,7 +10,7 @@ import { Navbar } from '../Components/Navbar';
 import ResultsProductPage from './ResultsProductPage';
 import { functionFindValue } from '../Utils/categoryNameValue';
 
-const ProductViewImagePage= ({imageUrl}) => { 
+const ProductViewImagePage= () => { 
     const [crop, setCrop] = useState();
     const [previewUrl, setPreviewUrl] = useState(null)
     const [imageFile, setImageFile] = useState(null);
@@ -34,20 +34,26 @@ const ProductViewImagePage= ({imageUrl}) => {
     //Sku
     const [currentSKU, setSKU] = useState()
     const [showItem, setShowItem] = useState(false)
+    //imageUrl
+    const location = useLocation()
+    const passedState = location.state;
+    const imageUrl = passedState ? passedState.imageUrl : null; // Or your default value
+
 
 
     const setCurrentSKU  = (item) =>{
       setSKU(item)
       setShowItem(true)
     }
-    useEffect(()=>{
-      console.log("Here is the current sku", currentSKU)
-    },[currentSKU])
 
-    useEffect(()=>{
-      console.log("Completed Crop is here: ", completedCrop)
-      console.log("Crop is here: ", crop)
-    }, [completedCrop])
+    // useEffect(()=>{
+    //   console.log("Here is the current sku", currentSKU)
+    // },[currentSKU])
+
+    // useEffect(()=>{
+    //   console.log("Completed Crop is here: ", completedCrop)
+    //   console.log("Crop is here: ", crop)
+    // }, [completedCrop])
 
     const handleChangeCurrentList = (detectValue) =>{
       const reset = products.filter((product)=>{
@@ -57,27 +63,33 @@ const ProductViewImagePage= ({imageUrl}) => {
       setCurrentItem(detectValue)
     }
 
-    imageUrl = "https://firebasestorage.googleapis.com/v0/b/fyp-data-bagsearch.appspot.com/o/boots-1-b.webp?alt=media&token=8c14bd17-bcb9-404b-81d3-87d8ccdbea7e"
-    useEffect(async()=>{
-        try {
-            const response = await fetch('http://192.168.100.34:5000/fetch-image', {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ imageUrl: imageUrl }) // Replace with your image URL
-            });
-      
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-      
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            setPreviewUrl(url);
-          } catch (error) {
-            console.error('Error fetching image:', error);
+
+    const fetchBlob = async()=>{
+      try {
+          const response = await fetch('http://192.168.100.34:5000/fetch-image', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ imageUrl: imageUrl }) // Replace with your image URL
+          });
+    
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
           }
+    
+          const blob = await response.blob();
+          
+          const url = URL.createObjectURL(blob);
+          console.log("Preview url", url)
+          setPreviewUrl(url);
+        } catch (error) {
+          console.error('Error fetching image:', error);
+        }
+  }
+    // imageUrl = "https://firebasestorage.googleapis.com/v0/b/fyp-data-bagsearch.appspot.com/o/boots-1-b.webp?alt=media&token=8c14bd17-bcb9-404b-81d3-87d8ccdbea7e"
+    useEffect(()=>{
+      fetchBlob()
     },[imageUrl])
     //   if (!imageFile) {
     //     return
@@ -147,84 +159,84 @@ const ProductViewImagePage= ({imageUrl}) => {
     
 
     const submit = async()=>{
-//       const formData = new FormData();
-//       formData.append('image', croppedImageBlob); // Optional filename
-//   try {
-//     const response = await fetch('http://192.168.100.34:5000/products/detect', {
-//       method: 'POST',
-//       body: formData,
-//     });
+      const formData = new FormData();
+      formData.append('image', croppedImageBlob); // Optional filename
+  try {
+    const response = await fetch('http://192.168.100.34:5000/products/detect', {
+      method: 'POST',
+      body: formData,
+    });
 
-//     if (!response.ok) {
-//       throw new Error(`API request failed with status ${response.status}`);
-//     }
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
 
-//     const data = await response.json();
-//     // console.log('API response:', data);
-//     setSpinner(false)
-//     setProducts(data.products)
-//     setCurrentList(data.products[0])
-//     // setIsResultOpen(true)
-//   } catch (error) {
-//     console.error('Error sending cropped image:', error);
-//   }
+    const data = await response.json();
+    // console.log('API response:', data);
+    setSpinner(false)
+    setProducts(data.products)
+    setCurrentList(data.products[0])
+    // setIsResultOpen(true)
+  } catch (error) {
+    console.error('Error sending cropped image:', error);
+  }
     }
     useEffect(()=>{
       submit()
     },[croppedImageBlob])
 
 
-    useEffect(()=>{
-      if(wholePrictureReady == true){
-        const canvas = canvasRef.current;
-      const image = imageRef.current;
-      const scaleX = image.naturalWidth / image.width;
-      const scaleY = image.naturalHeight / image.height;
-      const ctx = canvas.getContext('2d');
+    // useEffect(()=>{
+    //   if(wholePrictureReady == true){
+    //     const canvas = canvasRef.current;
+    //   const image = imageRef.current;
+    //   const scaleX = image.naturalWidth / image.width;
+    //   const scaleY = image.naturalHeight / image.height;
+    //   const ctx = canvas.getContext('2d');
   
-      const { x, y, width, height } = completedCrop;
-      console.log("Here is the completed crop function lets go!", x, y, width, height)
+    //   const { x, y, width, height } = completedCrop;
+    //   console.log("Here is the completed crop function lets go!", x, y, width, height)
   
-      canvas.width = width;
-      canvas.height = height;
+    //   canvas.width = width;
+    //   canvas.height = height;
   
-      ctx.drawImage(
-        image,
-        x * scaleX,
-        y * scaleY,
-        width * scaleX,
-        height * scaleY,
-        0,
-        0,
-        width,
-        height
-      );
+    //   ctx.drawImage(
+    //     image,
+    //     x * scaleX,
+    //     y * scaleY,
+    //     width * scaleX,
+    //     height * scaleY,
+    //     0,
+    //     0,
+    //     width,
+    //     height
+    //   );
   
-      console.log("Drawn")
-      canvas.toBlob((blob) => {
-        if (!blob) {
-          console.error('Canvas is empty');
-          return;
-        }
-        const fileUrl = URL.createObjectURL(blob);
-        console.log('Cropped image URL:', fileUrl);
-        setCroppedImageBlob(blob);
+    //   console.log("Drawn")
+    //   canvas.toBlob((blob) => {
+    //     if (!blob) {
+    //       console.error('Canvas is empty');
+    //       return;
+    //     }
+    //     const fileUrl = URL.createObjectURL(blob);
+    //     console.log('Cropped image URL:', fileUrl);
+    //     setCroppedImageBlob(blob);
 
-        const downloadLink = document.createElement('a');
-        downloadLink.href = fileUrl;
-        downloadLink.download = 'cropped_image.jpg'; // Set desired filename
-        downloadLink.click();
-      }, 'image/jpeg');
+    //     const downloadLink = document.createElement('a');
+    //     downloadLink.href = fileUrl;
+    //     downloadLink.download = 'cropped_image.jpg'; // Set desired filename
+    //     downloadLink.click();
+    //   }, 'image/jpeg');
 
     
-    setIsResultOpen(true)
-    setSpinner(true)
+    // setIsResultOpen(true)
+    // setSpinner(true)
 
-    setUploaded(true)
-    setHideButton(true)
-      }
+    // setUploaded(true)
+    // setHideButton(true)
+    //   }
 
-    },[wholePrictureReady])
+    // },[wholePrictureReady])
     
     const createCroppedImage = async () => {
       if (!completedCrop || !canvasRef.current || !imageRef.current) {
@@ -303,7 +315,7 @@ const ProductViewImagePage= ({imageUrl}) => {
 
 <>
 <Navbar></Navbar>
-{(!previewUrl && !showItem) && (
+{/* {(!previewUrl && !showItem) && (
   <div className='m-3'>
 
 <input
@@ -313,7 +325,7 @@ const ProductViewImagePage= ({imageUrl}) => {
     id="inputGroupFile01"
   />
   </div>
-)}
+)} */}
 {
 
 (previewUrl && !showItem) 
@@ -326,7 +338,7 @@ const ProductViewImagePage= ({imageUrl}) => {
     onChange={onCrop}
     onComplete={onCropComplete}
   >
-    <img ref={imageRef} src={"https://firebasestorage.googleapis.com/v0/b/fyp-data-bagsearch.appspot.com/o/boots-1-b.webp?alt=media&token=8c14bd17-bcb9-404b-81d3-87d8ccdbea7e"} alt="Crop me" onLoad={onImageLoad} />
+    <img ref={imageRef} src={previewUrl} alt="Crop me" onLoad={onImageLoad} />
   </ReactCrop>
 
 </div>
@@ -335,13 +347,13 @@ const ProductViewImagePage= ({imageUrl}) => {
 
 
 
-{(!showItem) && <div className='d-flex justify-content-center mb-5'>
-   <button className={`btn home-search-button d-flex justify-content-center ${buttonEnable}`} onClick={()=>{
+ <div className='d-flex justify-content-center mb-5'>
+   <button className={`btn home-search-button d-flex justify-content-center`} onClick={()=>{
     setProducts()
      createCroppedImage()
      
    }}>Upload Image</button>
-  </div>}
+  </div>
 
   <canvas ref={canvasRef} style={{display:"none"}}/>
   

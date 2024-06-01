@@ -22,7 +22,7 @@ export default function LabelWisePage() {
 
     useEffect(()=>{
         fetchLabelWiseProducts()
-    },[])
+    },[passedState.labelName])
   return (
    <>
    <Navbar>   </Navbar>

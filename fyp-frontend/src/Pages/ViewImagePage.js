@@ -293,19 +293,16 @@ const ViewImagePage = () => {
   />
   </div>
 )}
-{
-
-(previewUrl && !showItem) 
-
-&& 
-<div className='d-flex justify-content-center image-container pb-3 ps-5 pe-5' style={{overflow:"auto"}}>
+{(previewUrl && !showItem) && 
+<div className='d-flex justify-content-center image-container pb-3 ps-4 pe-4'>
 
   <ReactCrop
     crop={crop}
     onChange={onCrop}
+    
     onComplete={onCropComplete}
   >
-    <img ref={imageRef} src={"https://firebasestorage.googleapis.com/v0/b/fyp-data-bagsearch.appspot.com/o/boots-1-b.webp?alt=media&token=8c14bd17-bcb9-404b-81d3-87d8ccdbea7e"} alt="Crop me" onLoad={onImageLoad} />
+    <img ref={imageRef} src={previewUrl} alt="Crop me" onLoad={onImageLoad} />
   </ReactCrop>
 
 </div>

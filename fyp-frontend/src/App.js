@@ -13,7 +13,7 @@ import CartPage from './Pages/CartPage';
 import LabelWisePage from './Pages/LabelWisePage';
 import DummyImageUpload from './Pages/DummyImageUpload';
 import CheckoutPage from './Pages/CheckoutPage';
-// import ProductViewImagePage from './Pages/ProductViewImagePage';
+import ProductViewImagePage from './Pages/ProductViewImagePage';
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
           <Route path="product-tile" element={<CartPageProductTile></CartPageProductTile>}></Route>
           <Route path='/dummy-image-upload' element={<DummyImageUpload></DummyImageUpload>}></Route>
           <Route path='/checkout' element={<CheckoutPage></CheckoutPage>}></Route>
-          {/* <Route path='/image-searchy-wearchy' element={<ProductViewImagePage></ProductViewImagePage>}></Route> */}
+          <Route path='/image-searchy-wearchy' element={<ProductViewImagePage></ProductViewImagePage>}></Route>
         </Routes>
       </BrowserRouter>  
     </CartProvider>

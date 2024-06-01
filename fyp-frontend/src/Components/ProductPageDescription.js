@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react'
 import { CartContext } from '../Contexts/cartContext'
+import { Link } from 'react-router-dom'
 
 export default function ProductPageDescription({products, sizings, description, manageAddToCart}) {
     const [quantity, setQuantity] = useState(0)
@@ -62,7 +63,7 @@ export default function ProductPageDescription({products, sizings, description, 
                })}
             </div>
             <div className='d-flex justify-content-center'>
-            <p className='pt-2'><a href="#" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Light link</a></p>
+            <p className='pt-2'><Link to='/image-searchy-wearchy' state={{imageUrl: products.imagePath[0].imgUrl}} class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Similar Products</Link></p>
             </div>
         </div>
 
